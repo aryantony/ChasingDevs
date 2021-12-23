@@ -4,8 +4,12 @@ import "./Blanktextarea.css";
 import { useLocation, useHistory } from "react-router-dom";
 export default function Blanktextarea() {
   //   const navigate = useNavigate();
-  const [FirstNumber, setFirstNumber] = useState("10");
-  const [SecondNumber, setSecondNumber] = useState("3");
+  const [FirstNumber, setFirstNumber] = useState(
+    Math.round(8 + (19 - 8) * Math.random())
+  );
+  const [SecondNumber, setSecondNumber] = useState(
+    Math.round(0 + (7 - 0) * Math.random())
+  );
   // let FirstNumber = Math.round(8 + (19 - 8) * Math.random());
   // let SecondNumber = Math.round(0 + (7 - 0) * Math.random());
   let ResultOftwoNumvber = FirstNumber - SecondNumber;

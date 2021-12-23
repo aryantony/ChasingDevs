@@ -15,7 +15,7 @@ export default function Otpverificationpage() {
     const secs = time - mins * 60;
     return { mins: formatNumber(mins), secs: formatNumber(secs) };
   };
-  const [remainingSecs, setRemainingSecs] = useState(20);
+  const [remainingSecs, setRemainingSecs] = useState(15);
   const [againotpreminder, setagainotpreminde] = useState(
     `we’ve sent a verification code to your email: ${enteredEmailaddress}`
   );
@@ -26,54 +26,52 @@ export default function Otpverificationpage() {
   const [userOtp, setuserOtp] = useState("");
   function setuserOtpfun(e) {
     setuserOtp(e.target.value);
-
-    setIsActive(false);
-
+    if (e.target.value === "") setIsActive(true);
+    else {
+      setIsActive(false);
+    }
     if (remainingSecs === 0) {
       setErrors("Your OTP has expired!");
     }
   }
   function otpverification() {
+    console.log("remainingsec=", remainingSecs);
     if (remainingSecs !== 0) {
       loginotp(enteredEmailaddress)
         .then((res) => {
           setActualotp(res.OTP);
         })
         .catch((e) => console.log(e));
+    } else {
+      setActualotp("hey Chasing DEvs,Are all you cool?");
     }
   }
-  function resetOtpVerification() {
-    loginotp(enteredEmailaddress)
-      .then((res) => {
-        setActualotp(res.OTP);
-      })
-      .catch((e) => console.log(e));
-  }
+
   function conditionLoginbutton() {
-    if (remainingSecs === 0) {
+    if (userOtp === "") {
+      setErrors("Enter the OTP!");
       setIsActive(true);
-      setErrors("Your OTP has expired!");
+    } else if (actualotp == userOtp) {
+      history.push("/Blanktextarea", {
+        whichLoginpage: "student",
+      });
     } else {
-      if (userOtp === "") {
-        setErrors("Enter the OTP!");
-        setIsActive(true);
-      } else if (actualotp == userOtp) {
-        history.push("/Blanktextarea", {
-          whichLoginpage: "student",
-        });
+      setIsActive(true);
+      if (remainingSecs === 0) {
+        setErrors("Your OTP has expired!");
       } else {
-        setIsActive(true);
         setErrors("Wrong Otp, try again!");
       }
     }
   }
+
   function reset() {
     setRemainingSecs(20);
-
+    otpverification();
     setagainotpreminde(
       `Again a verification code is sent to your email: ${enteredEmailaddress}`
     );
-    resetOtpVerification();
+
     // console.log("a");
     // setIsActive(false);
   }

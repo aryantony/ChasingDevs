@@ -87,11 +87,6 @@ function App() {
                         Archives
                       </NavLink>
                     </li>
-                    <li className="nav-item navitem navitem_top">
-                      <NavLink to="/profile" exact>
-                        Profile
-                      </NavLink>
-                    </li>
                   </ul>
                 </div>
               </div>

@@ -98,7 +98,16 @@ export default function Studentlogin() {
             onChange={handleChangeOFDropdown}
             onMouseOut={shouldBlur}
             onMouseOver={shouldFocus}
-            style={{ opacity: `${opacityOfdropdown}` }}
+            style={
+              `${opacityOfdropdown}` === "0"
+                ? {
+                    opacity: "0",
+                    width: "0",
+                    height: "0",
+                    top: "-1000000000000px",
+                  }
+                : { opacity: "1" }
+            }
           >
             <option value="@kgpian.iitkgp.ac.in">@kgpian.iitkgp.ac.in</option>
             <option value="@iitkgp.ac.in">@iitkgp.ac.in</option>
